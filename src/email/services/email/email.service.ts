@@ -1,27 +1,24 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectSendGrid } from '@ntegral/nestjs-sendgrid/dist/common/sendgrid.decorator';
 import { SendGridService } from '@ntegral/nestjs-sendgrid/dist/services/sendgrid.service';
-import { Model } from 'mongoose';
-import { SlugsService } from 'src/countryslugs/services/slugs/slugs.service';
-import { LiveDocument } from 'src/live/models/live.schema';
-import { LiveService } from 'src/live/services/live/live.service';
 import * as dotenv from 'dotenv';
 import { UserService } from 'src/user/services/user/user.service';
-import { CountriesService } from 'src/summary/services/countries.service';
 import { SummaryService } from 'src/summary/services/summary.service';
-import { CountryDocument } from 'src/country/models/country.model';
-import { SubscribeCountryDocument } from 'src/user/models/subcountry.schema';
+import { Cron, CronExpression } from '@nestjs/schedule';
 dotenv.config();
 
 @Injectable()
 export class EmailService {
+    private readonly logger = new Logger(UserService.name);
+
     constructor(private summaryService: SummaryService,
-        private countrySummaryService: CountriesService,
         private userService: UserService,
         @InjectSendGrid() private readonly sendMSG: SendGridService) { }
-
+        
+    @Cron(CronExpression.EVERY_10_HOURS)
     async sendSubGeneralEmail() {
+        this.logger.debug('Called every 10 HOURS');
+
         const result = await this.userService.getAllGeneralSubs();
         const emailList = result.map((res) => res.email)
         const summary = await this.summaryService.findRecentSummary();

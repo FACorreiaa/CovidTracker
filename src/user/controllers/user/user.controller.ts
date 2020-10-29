@@ -53,10 +53,9 @@ export class UserController {
 
     @UseFilters(AllExceptionsFilter)
     @UseFilters(MongoExceptionFilter)
-    @UseInterceptors(CacheInterceptor)
-    @Get('sub/countries')
+    @Post('sub/email/countries')
     async getAllCountrySubs() {
-        return await this.userService.getAllCountrySubs()
+        return await this.userService.sendSubCountryEmail()
     }
 
     @UseFilters(AllExceptionsFilter)

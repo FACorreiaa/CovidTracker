@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import { CountrySummaryDocument } from '../models/countrysummary.schema';
 import axios from 'axios'
 import { Cron, CronExpression } from '@nestjs/schedule';
-import { CountryDocument } from 'src/country/models/country.model';
 import { subCountry } from '../models/subCountry.interface';
 @Injectable()
 export class CountriesService {

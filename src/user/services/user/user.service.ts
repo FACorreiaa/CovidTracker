@@ -1,19 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { json } from 'body-parser';
 import { Model } from 'mongoose';
 import { AuthService } from 'src/auth/services/auth/auth.service';
 import { CountriesService } from '../../../summary/services/countries.service';
-import { SummaryService } from 'src/summary/services/summary.service';
 import { SubscribeCountryDocument } from 'src/user/models/subcountry.schema';
 import { SubscribeGeneralDocument } from 'src/user/models/subgeneral.schema';
 import { UserDocument, UserRole } from 'src/user/models/users.schema';
 import { SendGridService } from '@ntegral/nestjs-sendgrid/dist/services';
 import { InjectSendGrid } from '@ntegral/nestjs-sendgrid/dist/common';
 import { MailerService } from '@nestjs-modules/mailer/dist/mailer.service';
+import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
 export class UserService {
+    private readonly logger = new Logger(UserService.name);
+
     constructor(
         @InjectModel('SubscribeGeneral') private readonly subGeneralModel: Model<SubscribeGeneralDocument>,
         @InjectModel('SubscribeCountry') private readonly subCountryModel: Model<SubscribeCountryDocument>,
@@ -65,7 +66,7 @@ export class UserService {
                             if (doc == null) {
                                 const newCountry = new this.subCountryModel();
                                 newCountry.email = email,
-                                    newCountry.countries.push(country);
+                                newCountry.countries.push(country);
                                 newCountry.createdAt = new Date();
                                 const res = newCountry.save();
                                 console.log('New doc created', newCountry)
@@ -174,7 +175,10 @@ export class UserService {
         return await this.subGeneralModel.find({}, { email: 1 }).exec()
     }
 
-    async getAllCountrySubs() {
+    
+    @Cron(CronExpression.EVERY_10_HOURS)
+    async sendSubCountryEmail() {
+        this.logger.debug('Called every 10 HOURS');
         return await this.subCountryModel.find({}, async (err, doc) => {
             if (err) {
                 console.log(err)
@@ -184,32 +188,34 @@ export class UserService {
             const [data] = doc;
             const details = await this.countrySummaryService.getCountrySummaryList(data.countries)
             const [countryDetails] = details
-            console.log('res', countryDetails)
-            console.log('doc', data.email)
-
-            const msg = {
-                to: data.email, // Change to your recipient
-                from: 'fernando316correia@hotmail.com', // Change to your verified sender
-                templateId: 'd-f14c9b777a0d465a922a89c6d9f06936',
-                dynamic_template_data: {
-                    Country: countryDetails.Country,
-                    NewConfirmed: countryDetails.NewConfirmed,
-                    TotalConfirmed: countryDetails.TotalConfirmed,
-                    NewDeaths: countryDetails.NewDeaths,
-                    TotalDeaths: countryDetails.TotalDeaths,
-                    NewRecovered: countryDetails.NewRecovered,
-                    TotalRecovered: countryDetails.TotalRecovered
-                },
-            }
-            console.log(msg)
-            this.sendMSG
-                .sendMultiple(msg)
-                .then(() => {
-                    console.log('MULTIPLE Email sent to: ', data.email)
-                })
-                .catch((error) => {
-                    console.error(error)
-                })
+            const emailList = doc.map((res) => res.email)
+            details.forEach((element) => {
+                console.log('ELEMENT', element)
+                const msg = {
+                    to: emailList, // Change to your recipient
+                    from: 'fernando316correia@hotmail.com', // Change to your verified sender
+                    templateId: 'd-f14c9b777a0d465a922a89c6d9f06936',
+                    dynamic_template_data: {
+                        Country: element.Country,
+                        NewConfirmed: element.NewConfirmed,
+                        TotalConfirmed: element.TotalConfirmed,
+                        NewDeaths: element.NewDeaths,
+                        TotalDeaths: element.TotalDeaths,
+                        NewRecovered: element.NewRecovered,
+                        TotalRecovered: element.TotalRecovered
+                    },
+                }
+                console.log(msg)
+                this.sendMSG
+                    .sendMultiple(msg)
+                    .then(() => {
+                        console.log('MULTIPLE Email sent to: ', emailList)
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    })
+            })
+            
 
             return doc
         }).exec()

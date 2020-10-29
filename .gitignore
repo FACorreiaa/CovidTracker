@@ -35,6 +35,7 @@ lerna-debug.log*
 
 .env
 .env.production
-
 sendgrid.env
+newrelic.js
+newrelic_agent.log
 
