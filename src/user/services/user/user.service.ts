@@ -31,13 +31,10 @@ export class UserService {
     const newSub = new this.subGeneralModel();
     const isSubbed = await this.checkForSubUser(email);
     try {
-      if (isSubbed.length > 0) {
-        return false;
-      } else {
+      if (isSubbed.length < 0) {
         newSub.email = email;
         newSub.createdAt = new Date();
-        await newSub.save();
-        return true;
+        return await newSub.save();
       }
     } catch (error) {
       console.log('error');
