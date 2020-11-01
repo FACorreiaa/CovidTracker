@@ -40,8 +40,13 @@ export class SlugsService {
   }
 
   async getCountryList() {
-    const result = await this.getSlug();
-    return result.map(res => res.Country).sort();
+    return this.slugModel
+      .find({}, { 'list.Country': 1 })
+      .sort('list.Country')
+      .limit(1)
+      .exec();
+    //const result = await this.getSlug();
+    //return result.map(res => res.Country).sort();
   }
 
   async getSlug() {
