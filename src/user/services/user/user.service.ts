@@ -31,7 +31,9 @@ export class UserService {
     const newSub = new this.subGeneralModel();
     const isSubbed = await this.checkForSubUser(email);
     try {
-      if (isSubbed.length < 0) {
+      if (isSubbed.length > 0) {
+        return false;
+      } else {
         newSub.email = email;
         newSub.createdAt = new Date();
         return await newSub.save();
