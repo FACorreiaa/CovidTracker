@@ -36,13 +36,13 @@ export class UserService {
       } else {
         newSub.email = email;
         newSub.createdAt = new Date();
+        await newSub.save();
+        return true;
       }
     } catch (error) {
       console.log('error');
       throw error;
     }
-    await newSub.save();
-    return true;
   }
 
   async subscribeCountryInfo(email: string, country: string) {
