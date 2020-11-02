@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import axios from 'axios';
 import { Model } from 'mongoose';
+import SlugInterface from 'src/countryslugs/models/slugs.interface';
 import { SlugsDocument } from 'src/countryslugs/models/slugs.schema';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 
@@ -39,14 +40,10 @@ export class SlugsService {
     return await this.slugModel.find({}, { 'list.Country': 1 }).exec();
   }
 
+  //alterar amanha
   async getCountryList() {
-    return this.slugModel
-      .find({}, { 'list.Country': 1 })
-      .sort('list.Country')
-      .limit(1)
-      .exec();
-    //const result = await this.getSlug();
-    //return result.map(res => res.Country).sort();
+    const result = await this.getSlug();
+    return result.map(res => res.Country).sort();
   }
 
   async getSlug() {
