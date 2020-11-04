@@ -68,12 +68,6 @@ export class CountriesService {
             'countrySummary.NewRecovered': -1,
           },
         },
-        {
-          $project: {
-            'countrySummary.NewRecovered': 1,
-            'countrySummary.Country': 1,
-          },
-        },
       ])
       .limit(10)
       .exec();
@@ -92,12 +86,6 @@ export class CountriesService {
           $sort: {
             'countrySummary.Date': -1,
             'countrySummary.NewConfirmed': -1,
-          },
-        },
-        {
-          $project: {
-            'countrySummary.NewConfirmed': 1,
-            'countrySummary.Country': 1,
           },
         },
       ])
@@ -120,12 +108,6 @@ export class CountriesService {
             'countrySummary.TotalDeaths': -1,
           },
         },
-        {
-          $project: {
-            'countrySummary.TotalDeaths': 1,
-            'countrySummary.Country': 1,
-          },
-        },
       ])
       .limit(10)
       .exec();
@@ -146,12 +128,6 @@ export class CountriesService {
             'countrySummary.TotalRecovered': -1,
           },
         },
-        {
-          $project: {
-            'countrySummary.TotalRecovered': 1,
-            'countrySummary.Country': 1,
-          },
-        },
       ])
       .limit(10)
       .exec();
@@ -170,12 +146,6 @@ export class CountriesService {
           $sort: {
             'countrySummary.Date': -1,
             'countrySummary.TotalConfirmed': -1,
-          },
-        },
-        {
-          $project: {
-            'countrySummary.TotalConfirmed': 1,
-            'countrySummary.Country': 1,
           },
         },
       ])
