@@ -40,13 +40,7 @@ export class CountriesService {
         { $unwind: '$countrySummary' },
 
         {
-          $sort: { 'countrySummary.Date': -1, 'countrySummary.NewDeaths': -1 },
-        },
-        {
-          $project: {
-            'countrySummary.NewDeaths': 1,
-            'countrySummary.Country': 1,
-          },
+          $sort: { 'countrySummary.Date': 1, 'countrySummary.NewDeaths': -1 },
         },
       ])
       .limit(10)
@@ -64,7 +58,7 @@ export class CountriesService {
         { $unwind: '$countrySummary' },
         {
           $sort: {
-            'countrySummary.Date': -1,
+            'countrySummary.Date': 1,
             'countrySummary.NewRecovered': -1,
           },
         },
@@ -84,7 +78,7 @@ export class CountriesService {
         { $unwind: '$countrySummary' },
         {
           $sort: {
-            'countrySummary.Date': -1,
+            'countrySummary.Date': 1,
             'countrySummary.NewConfirmed': -1,
           },
         },
@@ -104,7 +98,7 @@ export class CountriesService {
         { $unwind: '$countrySummary' },
         {
           $sort: {
-            'countrySummary.Date': -1,
+            'countrySummary.Date': 1,
             'countrySummary.TotalDeaths': -1,
           },
         },
@@ -124,7 +118,7 @@ export class CountriesService {
         { $unwind: '$countrySummary' },
         {
           $sort: {
-            'countrySummary.Date': -1,
+            'countrySummary.Date': 1,
             'countrySummary.TotalRecovered': -1,
           },
         },
@@ -132,7 +126,8 @@ export class CountriesService {
       .limit(10)
       .exec();
     console.log(res);
-    return res;
+
+    return;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
@@ -144,7 +139,7 @@ export class CountriesService {
         { $unwind: '$countrySummary' },
         {
           $sort: {
-            'countrySummary.Date': -1,
+            'countrySummary.Date': 1,
             'countrySummary.TotalConfirmed': -1,
           },
         },
