@@ -35,7 +35,7 @@ export class CountriesService {
   async getTopNewDeaths() {
     this.logger.debug('Called every 5 HOURS');
 
-    const res = await this.countrysummaryModel
+    return await this.countrysummaryModel
       .aggregate([
         { $unwind: '$countrySummary' },
 
@@ -45,15 +45,13 @@ export class CountriesService {
       ])
       .limit(10)
       .exec();
-    console.log(res);
-    return res;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
   async getTopNewRecovered() {
     this.logger.debug('Called every 5 HOURS');
 
-    const res = await this.countrysummaryModel
+    return await this.countrysummaryModel
       .aggregate([
         { $unwind: '$countrySummary' },
         {
@@ -65,15 +63,13 @@ export class CountriesService {
       ])
       .limit(10)
       .exec();
-    console.log(res);
-    return res;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
   async getTopNewConfirmed() {
     this.logger.debug('Called every 5 HOURS');
 
-    const res = await this.countrysummaryModel
+    return await this.countrysummaryModel
       .aggregate([
         { $unwind: '$countrySummary' },
         {
@@ -85,15 +81,13 @@ export class CountriesService {
       ])
       .limit(10)
       .exec();
-    console.log(res);
-    return res;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
   async getTopTotalDeaths() {
     this.logger.debug('Called every 5 HOURS');
 
-    const res = await this.countrysummaryModel
+    return await this.countrysummaryModel
       .aggregate([
         { $unwind: '$countrySummary' },
         {
@@ -105,15 +99,13 @@ export class CountriesService {
       ])
       .limit(10)
       .exec();
-    console.log(res);
-    return res;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
   async getTopTotalRecovered() {
     this.logger.debug('Called every 5 HOURS');
 
-    const res = await this.countrysummaryModel
+    return await this.countrysummaryModel
       .aggregate([
         { $unwind: '$countrySummary' },
         {
@@ -125,16 +117,13 @@ export class CountriesService {
       ])
       .limit(10)
       .exec();
-    console.log(res);
-
-    return;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
   async getTopTotalConfirmed() {
     this.logger.debug('Called every 5 HOURS');
 
-    const res = await this.countrysummaryModel
+    return await this.countrysummaryModel
       .aggregate([
         { $unwind: '$countrySummary' },
         {
@@ -146,8 +135,6 @@ export class CountriesService {
       ])
       .limit(10)
       .exec();
-    console.log(res);
-    return res;
   }
 
   @Cron(CronExpression.EVERY_5_HOURS)
