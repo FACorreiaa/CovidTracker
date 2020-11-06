@@ -176,6 +176,12 @@ export class CountriesService {
     );
   }
 
+  async getDailyCountrySUmmary(country: string): Promise<subCountry[]> {
+    const data = await this.getSummaryHistory();
+    const { countrySummary } = data;
+    return countrySummary.filter(c => c.Country === country);
+  }
+
   async getCountrySummaryData() {
     const result = await axios.get(`${process.env.BASE_URL}/summary`);
     return result;

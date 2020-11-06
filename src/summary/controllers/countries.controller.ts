@@ -78,4 +78,12 @@ export class CountriesController {
   async getTopTotalConfirmed() {
     return await this.countriesService.getTopTotalConfirmed();
   }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('daily/country/:country')
+  async getDailyCountrySUmmary(@Param('country') country: string) {
+    return await this.countriesService.getDailyCountrySUmmary(country);
+  }
 }
