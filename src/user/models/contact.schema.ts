@@ -13,7 +13,6 @@ class Contact extends Document {
     validate: [validateEmail, 'Please fill a valid email'],
     trim: true,
     lowercase: true,
-    unique: true,
   })
   email: string;
   @Prop({ required: true })
