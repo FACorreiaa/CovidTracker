@@ -10,6 +10,8 @@ import { SendGridService } from '@ntegral/nestjs-sendgrid/dist/services';
 import { InjectSendGrid } from '@ntegral/nestjs-sendgrid/dist/common';
 import { MailerService } from '@nestjs-modules/mailer/dist/mailer.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
+import { ContactDocument } from 'src/user/models/contact.schema';
+import { IContact } from 'src/user/models/contact.interface';
 
 @Injectable()
 export class UserService {
@@ -21,6 +23,9 @@ export class UserService {
     @InjectModel('SubscribeCountry')
     private readonly subCountryModel: Model<SubscribeCountryDocument>,
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
+    @InjectModel('Contact')
+    private readonly contactModel: Model<ContactDocument>,
+
     private authService: AuthService,
     private countrySummaryService: CountriesService,
     @InjectSendGrid() private readonly sendMSG: SendGridService,
@@ -232,5 +237,14 @@ export class UserService {
 
   async getAllCountriesByEmail(email: string) {
     return await this.subCountryModel.find({ email }, { countries: 1 }).exec();
+  }
+
+  async postContactMessage(contact: IContact) {
+    const newContact = new this.contactModel();
+    newContact.name = contact.name;
+    newContact.email = contact.email;
+    newContact.message = contact.message;
+    newContact.createdAt = new Date();
+    return newContact.save();
   }
 }

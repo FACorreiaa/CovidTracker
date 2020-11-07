@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type DayOneDocument = DayOne & Document;
@@ -32,18 +32,17 @@ class subDay extends Document {
   Active: number;
   @Prop()
   Date: Date;
-
-
+  @Prop()
+  average: number;
 }
 @Schema()
 class DayOne extends Document {
   @Prop({ type: subDay })
-  name: subDay
+  name: subDay;
   @Prop()
-  createdAt: Date
-
+  createdAt: Date;
+  @Prop()
+  average: number;
 }
 
 export const DayOneSchema = SchemaFactory.createForClass(DayOne);
-
-
