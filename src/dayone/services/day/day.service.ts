@@ -3,10 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { DayOneDocument } from 'src/dayone/models/day.schema';
 import axios from 'axios';
+import { StatisticsDocument } from 'src/dayone/models/statistics.schema';
 @Injectable()
 export class DayService {
   constructor(
     @InjectModel('DayOne') private readonly dayModel: Model<DayOneDocument>,
+    @InjectModel('Statistics')
+    private readonly statisticsModel: Model<StatisticsDocument>,
   ) {}
 
   async findDayOneByCountry(country: string) {
@@ -23,27 +26,20 @@ export class DayService {
       .exec();
   }
 
-  async findAverageByCountry(country: string) {
+  async findCountryStatistics(country: string) {
     console.log(country);
-    const result = this.dayModel.aggregate(
-      [
-        { $unwind: '$name' },
-        { $match: { 'name.Country': country } },
-        {
-          $group: { _id: '$_id', average: { $avg: '$name.Confirmed' } },
+    return this.dayModel.aggregate([
+      {
+        $set: {
+          avgConfirmed: { $avg: '$name.Confirmed' },
         },
-      ],
-      function(err, result) {
-        console.log(err);
-        console.log(result);
-        if (err) {
-          console.log(err);
-        }
-        console.log(result);
       },
-    );
-    console.log(result);
-    return result;
+      {
+        $set: {
+          stdConfirmed: { $stdDevPop: '$name.Confirmed' },
+        },
+      },
+    ]);
   }
 
   async findDayOneByCountryLive(country: string, status: string) {

@@ -25,9 +25,9 @@ export class DayController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('avg/country/:country')
-  async findAverageByCountry(@Param('country') country: string) {
-    return await this.dayoneService.findAverageByCountry(country);
+  @Get('stats/country/:country')
+  async findCountryStatistics(@Param('country') country: string) {
+    return await this.dayoneService.findCountryStatistics(country);
   }
 
   @UseInterceptors(CacheInterceptor)

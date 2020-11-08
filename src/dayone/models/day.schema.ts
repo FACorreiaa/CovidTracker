@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { ProgressPlugin } from 'webpack';
 
 export type DayOneDocument = DayOne & Document;
 
@@ -32,8 +33,6 @@ class subDay extends Document {
   Active: number;
   @Prop()
   Date: Date;
-  @Prop()
-  average: number;
 }
 @Schema()
 class DayOne extends Document {
@@ -42,7 +41,9 @@ class DayOne extends Document {
   @Prop()
   createdAt: Date;
   @Prop()
-  average: number;
+  avgConfirmed: number;
+  @Prop()
+  stdConfirmed: number;
 }
 
 export const DayOneSchema = SchemaFactory.createForClass(DayOne);
