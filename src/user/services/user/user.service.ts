@@ -54,7 +54,7 @@ export class UserService {
     console.log('isSubbed', isSubbed);
     try {
       if (isSubbed.length > 0) {
-        return 'You are already subbed';
+        return false;
       } else {
         //const subCountry = new this.subCountryModel();
         /*subCountry.email = email;
@@ -64,7 +64,7 @@ export class UserService {
           .findOne({ email }, (err, doc) => {
             if (err) {
               console.log('Error:', err);
-              return err;
+              throw err;
             } else {
               if (doc == null) {
                 const newCountry = new this.subCountryModel();

@@ -1,20 +1,18 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { subCountry } from 'src/summary/models/subCountry.interface';
 import { validateEmail } from 'src/validators/email.validators';
 
 export type SubscribeCountryDocument = SubscribeCountry & Document;
 
-
-
 @Schema()
 class SubscribeCountry extends Document {
   @Prop({
-    required: 'Email address is required',
+    required: true,
     validate: [validateEmail, 'Please fill a valid email'],
     trim: true,
     lowercase: true,
-    unique: true
+    unique: true,
   })
   email: string;
   @Prop()
@@ -22,9 +20,9 @@ class SubscribeCountry extends Document {
   @Prop()
   createdAt: Date;
   @Prop()
-  countryDetails: subCountry[]
+  countryDetails: subCountry[];
 }
 
-export const SubscribeCountrySchema = SchemaFactory.createForClass(SubscribeCountry);
-
-
+export const SubscribeCountrySchema = SchemaFactory.createForClass(
+  SubscribeCountry,
+);
