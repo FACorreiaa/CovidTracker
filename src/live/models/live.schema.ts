@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type LiveDocument = Live & Document;
@@ -28,18 +28,14 @@ class subLive extends Document {
   Active: number;
   @Prop()
   Date: Date;
-
-
 }
 @Schema()
 class Live extends Document {
   @Prop({ type: subLive })
-  name: subLive
+  name: subLive;
   @Prop()
-  createdAt: Date
-
+  createdAt: Date;
 }
 
 export const LiveSchema = SchemaFactory.createForClass(Live);
-
-
+LiveSchema.index({ 'name.Country': 1 }, { unique: true });

@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type CountryDocument = Country & Document;
@@ -32,18 +32,14 @@ class subCountry extends Document {
   Active: number;
   @Prop()
   Date: Date;
-
-
 }
 @Schema()
 class Country extends Document {
   @Prop({ type: subCountry })
-  name: subCountry
+  name: subCountry;
   @Prop()
-  createdAt: Date
-
+  createdAt: Date;
 }
 
 export const CountrySchema = SchemaFactory.createForClass(Country);
-
-
+CountrySchema.index({ 'name.Country': 1, 'name.Status': 1 }, { unique: true });

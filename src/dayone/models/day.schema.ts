@@ -47,3 +47,4 @@ class DayOne extends Document {
 }
 
 export const DayOneSchema = SchemaFactory.createForClass(DayOne);
+DayOneSchema.index({ 'name.Country': 1 }, { unique: true });
