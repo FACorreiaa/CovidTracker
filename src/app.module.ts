@@ -10,7 +10,6 @@ import { LiveModule } from './live/live.module';
 import { CountryModule } from './country/country.module';
 import { DayModule } from './dayone/day.module';
 import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
 import { APP_FILTER, APP_INTERCEPTOR } from '@nestjs/core';
 import { CountryslugsModule } from './countryslugs/countryslugs.module';
 import { EmailModule } from './email/email.module';
@@ -57,7 +56,6 @@ dotenv.config();
     CountryModule,
     DayModule,
     UserModule,
-    //AuthModule,
     CountryslugsModule,
     EmailModule,
     SendGridModule.forRoot({

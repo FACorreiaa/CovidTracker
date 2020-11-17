@@ -7,7 +7,6 @@ import {
   CacheInterceptor,
   Param,
   UseFilters,
-  Req,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -46,20 +45,6 @@ export class UserController {
   @Post('message/admin')
   async postContactMessage(@Body() contact: IContact) {
     return await this.userService.postContactMessage(contact);
-  }
-
-  @UseFilters(AllExceptionsFilter)
-  @UseFilters(MongoExceptionFilter)
-  @Post('register')
-  async register(@Body() user: UserDocument) {
-    return await this.userService.register(user);
-  }
-
-  @UseFilters(AllExceptionsFilter)
-  @UseFilters(MongoExceptionFilter)
-  @Post('login')
-  async login(@Body() user: UserDocument) {
-    return await this.userService.login(user);
   }
 
   @UseFilters(AllExceptionsFilter)

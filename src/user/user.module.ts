@@ -4,7 +4,6 @@ import { UserController } from './controllers/user/user.controller';
 import { UserSchema } from './models/users.schema';
 import { SubscribeGeneralSchema } from './models/subgeneral.schema';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthModule } from 'src/auth/auth.module';
 import { EmailModule } from 'src/email/email.module';
 import { SubscribeCountrySchema } from './models/subcountry.schema';
 import { SummaryModule } from 'src/summary/summary.module';
@@ -54,7 +53,6 @@ import { ContactSchema } from './models/contact.schema';
         },
       },
     ]),
-    AuthModule,
     CacheModule.register(),
     forwardRef(() => EmailModule),
     forwardRef(() => SummaryModule),

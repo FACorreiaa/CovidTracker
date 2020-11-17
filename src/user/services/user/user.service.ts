@@ -1,14 +1,12 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { AuthService } from 'src/auth/services/auth/auth.service';
 import { CountriesService } from '../../../summary/services/countries.service';
 import { SubscribeCountryDocument } from 'src/user/models/subcountry.schema';
 import { SubscribeGeneralDocument } from 'src/user/models/subgeneral.schema';
-import { UserDocument, UserRole } from 'src/user/models/users.schema';
+import { UserDocument } from 'src/user/models/users.schema';
 import { SendGridService } from '@ntegral/nestjs-sendgrid/dist/services';
 import { InjectSendGrid } from '@ntegral/nestjs-sendgrid/dist/common';
-import { MailerService } from '@nestjs-modules/mailer/dist/mailer.service';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { ContactDocument } from 'src/user/models/contact.schema';
 import { IContact } from 'src/user/models/contact.interface';
@@ -25,11 +23,8 @@ export class UserService {
     @InjectModel('User') private readonly userModel: Model<UserDocument>,
     @InjectModel('Contact')
     private readonly contactModel: Model<ContactDocument>,
-
-    private authService: AuthService,
     private countrySummaryService: CountriesService,
     @InjectSendGrid() private readonly sendMSG: SendGridService,
-    private readonly mailerService: MailerService,
   ) {}
 
   async subscribeGeneralInfo(email: string) {
@@ -91,63 +86,10 @@ export class UserService {
     //return await newSub.save();
   }
 
-  async register(user: UserDocument) {
-    if (!user.username && !user.password && !user.email) {
-      return 'Fill al fields!';
-    }
-    const pass = await this.authService.hashPassword(user.password);
-    const newUser = new this.userModel();
-    const checkIfExists = await this.userModel.find({
-      username: user.username,
-      email: user.email,
-    });
-    console.log(checkIfExists);
-    if (checkIfExists.length > 0) {
-      return 'User with that data already exists!';
-    }
-
-    newUser.username = user.username;
-    newUser.firstname = user.firstname;
-    newUser.lastname = user.lastname;
-    newUser.email = user.email;
-    newUser.password = pass;
-    newUser.role = UserRole.USER;
-
-    const result = newUser.save();
-    return result;
-  }
-
-  async login(user: UserDocument) {
-    const result = await this.validateUser(user.email, user.password);
-    if (result) {
-      const jwt = await this.authService.generateJWT(user);
-      return { access_token: jwt };
-    } else {
-      return 'Wrong credentials';
-    }
-  }
-
   async deleteOne(id: string) {
     return await this.userModel.findOneAndDelete({ _id: id });
   }
 
-  async updateRoleOfUser(id: string, role: string) {
-    return await this.userModel.findOneAndUpdate({ _id: id }, { role: role });
-  }
-
-  async validateUser(email: string, password: string) {
-    const result = await this.userModel.findOne({ email: email });
-    const match: boolean = await this.authService.comparePasswords(
-      password,
-      result.password,
-    );
-    if (match) {
-      const { password, ...res } = result;
-      return res;
-    } else {
-      throw Error;
-    }
-  }
   async findByMail(email: string) {
     return await this.userModel.findOne({ email: email });
   }
@@ -201,7 +143,7 @@ export class UserService {
         const details = await this.countrySummaryService.getCountrySummaryList(
           data.countries,
         );
-        const [countryDetails] = details;
+        const [] = details;
         const emailList = doc.map(res => res.email);
         details.forEach(element => {
           console.log('ELEMENT', element);
