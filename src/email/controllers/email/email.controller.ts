@@ -5,12 +5,12 @@ import { MongoExceptionFilter } from 'src/validators/mongoose.filter';
 
 @Controller('email')
 export class EmailController {
-    constructor(private emailService: EmailService) { }
+  constructor(private emailService: EmailService) {}
 
-    @UseFilters(AllExceptionsFilter)
-    @UseFilters(MongoExceptionFilter)
-    @Post('general')
-    async sendSubGeneralEmail() {
-        return this.emailService.sendSubGeneralEmail();
-    }
+  @UseFilters(AllExceptionsFilter)
+  @UseFilters(MongoExceptionFilter)
+  @Post('general')
+  async sendSubGeneralEmail() {
+    return this.emailService.sendSubGeneralEmail();
+  }
 }

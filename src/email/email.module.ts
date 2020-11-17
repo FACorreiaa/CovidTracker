@@ -9,9 +9,9 @@ import { CountryModule } from 'src/country/country.module';
   imports: [
     forwardRef(() => CountryModule),
     forwardRef(() => UserModule),
-    forwardRef(() => SummaryModule)
+    forwardRef(() => SummaryModule),
   ],
   providers: [EmailService],
-  controllers: [EmailController]
+  controllers: [EmailController],
 })
-export class EmailModule { }
+export class EmailModule {}

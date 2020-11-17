@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 export type WIPDocument = WIP & Document;
@@ -16,17 +16,13 @@ class subWIP extends Document {
   NewRecovered: number;
   @Prop()
   TotalRecovered: number;
-
-
 }
 @Schema()
 class WIP extends Document {
   @Prop({ type: subWIP })
-  name: subWIP
+  name: subWIP;
   @Prop()
   createdAt: Date;
 }
 
 export const WIPSchema = SchemaFactory.createForClass(WIP);
-
-

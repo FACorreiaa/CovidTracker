@@ -6,17 +6,24 @@ import { SlugSchema } from './models/slugs.schema';
 import { SlugsService } from './services/slugs/slugs.service';
 
 @Module({
-  imports: [MongooseModule.forFeatureAsync([{
-    name: 'Slugs', useFactory: () => {
-      const schema = SlugSchema;
-      schema.pre('save', function () {
-        this.update({}, { $set: { updatedAt: new Date() } });
-      });
-      return schema;
-    },
-  }]), forwardRef(() => EmailModule), CacheModule.register()],
+  imports: [
+    MongooseModule.forFeatureAsync([
+      {
+        name: 'Slugs',
+        useFactory: () => {
+          const schema = SlugSchema;
+          schema.pre('save', function() {
+            this.update({}, { $set: { updatedAt: new Date() } });
+          });
+          return schema;
+        },
+      },
+    ]),
+    forwardRef(() => EmailModule),
+    CacheModule.register(),
+  ],
   controllers: [SlugsController],
   providers: [SlugsService],
-  exports: [SlugsService]
+  exports: [SlugsService],
 })
-export class CountryslugsModule { }
+export class CountryslugsModule {}

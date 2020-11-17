@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 export type CountrySummaryDocument = CountrySummary & Document;
 
@@ -27,10 +27,11 @@ class subCountry {
 @Schema()
 class CountrySummary extends Document {
   @Prop()
-  countrySummary: [subCountry]
+  countrySummary: [subCountry];
   @Prop()
   createAt: Date;
 }
 
-
-export const CountrySummarySchema = SchemaFactory.createForClass(CountrySummary);
+export const CountrySummarySchema = SchemaFactory.createForClass(
+  CountrySummary,
+);

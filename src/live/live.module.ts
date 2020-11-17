@@ -6,17 +6,24 @@ import { LiveSchema } from './models/live.schema';
 import { LiveService } from './services/live/live.service';
 
 @Module({
-  imports: [MongooseModule.forFeatureAsync([{
-    name: 'Live', useFactory: () => {
-      const schema = LiveSchema;
-      schema.pre('save', function () {
-        this.update({}, { $set: { updatedAt: new Date() } });
-      });
-      return schema;
-    },
-  }]), forwardRef(() => EmailModule), CacheModule.register()],
+  imports: [
+    MongooseModule.forFeatureAsync([
+      {
+        name: 'Live',
+        useFactory: () => {
+          const schema = LiveSchema;
+          schema.pre('save', function() {
+            this.update({}, { $set: { updatedAt: new Date() } });
+          });
+          return schema;
+        },
+      },
+    ]),
+    forwardRef(() => EmailModule),
+    CacheModule.register(),
+  ],
   controllers: [LiveController],
   providers: [LiveService],
-  exports: [LiveService]
+  exports: [LiveService],
 })
-export class LiveModule { }
+export class LiveModule {}

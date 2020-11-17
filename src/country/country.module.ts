@@ -6,19 +6,23 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { CountryslugsModule } from 'src/countryslugs/countryslugs.module';
 
 @Module({
-  imports: [MongooseModule.forFeatureAsync([{
-    name: 'Country', useFactory: () => {
-      const schema = CountrySchema;
-      schema.pre('save', function () {
-        this.update({}, { $set: { updatedAt: new Date() } });
-      });
-      return schema;
-    },
-  }]),
+  imports: [
+    MongooseModule.forFeatureAsync([
+      {
+        name: 'Country',
+        useFactory: () => {
+          const schema = CountrySchema;
+          schema.pre('save', function() {
+            this.update({}, { $set: { updatedAt: new Date() } });
+          });
+          return schema;
+        },
+      },
+    ]),
     CountryslugsModule,
-  CacheModule.register()
+    CacheModule.register(),
   ],
   providers: [CountryService],
-  controllers: [CountryController]
+  controllers: [CountryController],
 })
-export class CountryModule { }
+export class CountryModule {}

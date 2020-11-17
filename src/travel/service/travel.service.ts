@@ -10,6 +10,22 @@ export class TravelService {
   ) {}
 
   async getTravelInfo(country: string) {
+    return this.travelModel.find({ Country: country });
+  }
+
+  async saveTravelInfo(country: string) {
+    const travelResult = await this.getTravelInfoFromAPI(country);
+    const newTravelInfo = new this.travelModel();
+    newTravelInfo.Country = travelResult.Country.Country;
+    newTravelInfo.Recommendation = travelResult.Recommendation;
+    newTravelInfo.Level = travelResult.Level.Level;
+    newTravelInfo.LevelDescr = travelResult.Level.LevelDesc;
+    newTravelInfo.Date = travelResult.Level.Date;
+    newTravelInfo.Notes = travelResult.Notes;
+    return newTravelInfo.save();
+  }
+
+  async getTravelInfoFromAPI(country: string) {
     console.log(country);
     const headersRequest = {
       'X-Access-Token': '5cf9dfd5-3449-485e-b5ae-70a60e997864',

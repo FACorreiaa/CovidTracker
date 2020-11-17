@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory, } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { validateEmail } from 'src/validators/email.validators';
 
@@ -19,7 +19,7 @@ class User extends Document {
     validate: [validateEmail, 'Please fill a valid email'],
     trim: true,
     lowercase: true,
-    unique: true
+    unique: true,
   })
   email: string;
 
@@ -45,6 +45,3 @@ export enum UserRole {
   EDITOR = 'editor',
   USER = 'user',
 }
-
-
-
