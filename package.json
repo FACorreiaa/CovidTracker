@@ -49,6 +49,7 @@
     "helmet": "^4.1.1",
     "mongoose": "^5.10.9",
     "nestjs-config": "1.4.7",
+    "nestjs-easyconfig": "2.2.0",
     "newrelic": "^6.13.2",
     "nodemailer": "6.4.14",
     "reflect-metadata": "^0.1.13",
