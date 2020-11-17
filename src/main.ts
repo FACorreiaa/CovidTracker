@@ -9,12 +9,14 @@ import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
 import { AllExceptionsFilter } from './validators/filter.validator';
+import dotenvFlow = require('dotenv-flow');
+
 require('newrelic');
 dotenv.config();
 declare const module: any;
 
 async function bootstrap() {
-
+  dotenvFlow.config();
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.use(bodyParser.json({ limit: '500mb' }));

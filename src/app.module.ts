@@ -19,7 +19,7 @@ import * as dotenv from 'dotenv';
 import { AllExceptionsFilter } from './validators/filter.validator';
 import { MailerModule } from '@nestjs-modules/mailer/dist/mailer.module';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
-
+//add .env.prod
 dotenv.config();
 @Module({
   imports: [
