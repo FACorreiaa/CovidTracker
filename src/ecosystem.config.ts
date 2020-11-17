@@ -2,10 +2,17 @@ module.exports = {
   apps: [
     {
       name: 'DeployApp',
-      script: './main.js', // path needs to be relative from ecosystem.config.js
-      watch: true, // any changes to app folder will get pm2 to restart app
+      script: 'dist/main.js',
+
+      // Options reference: https://pm2.io/doc/en/runtime/reference/ecosystem-file/
+      args: 'one two',
+      instances: 1,
+      autorestart: true,
+      watch: false,
+      max_memory_restart: '1G',
       env: {
-        NODE_ENV: 'producttion', // define env variables here
+        NODE_ENV: 'production',
+        //define env variables here
       },
     },
   ],
