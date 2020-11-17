@@ -42,6 +42,7 @@ require('dotenv').config();
     ScheduleModule.forRoot(),
     CacheModule.register(),
     ConfigModule.forRoot({
+      envFilePath: ['.env'],
       expandVariables: true,
       isGlobal: true,
     }),
