@@ -19,6 +19,7 @@ import * as dotenv from 'dotenv';
 import { AllExceptionsFilter } from './validators/filter.validator';
 import { MailerModule } from '@nestjs-modules/mailer/dist/mailer.module';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
+import { TravelModule } from './travel/travel.module';
 //add .env.prod
 dotenv.config();
 @Module({
@@ -59,9 +60,11 @@ dotenv.config();
     UserModule,
     CountryslugsModule,
     EmailModule,
+    TravelModule,
     SendGridModule.forRoot({
       apiKey: process.env.SENDGRID_API_KEY,
     }),
+    TravelModule,
   ],
   controllers: [AppController],
   providers: [
