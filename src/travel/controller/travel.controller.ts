@@ -17,7 +17,7 @@ export class TravelController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('info/:country')
+  @Get('/:country')
   async createSlugs(@Param('country') country: string) {
     console.log(country);
     return await this.travelService.getTravelInfo(country);

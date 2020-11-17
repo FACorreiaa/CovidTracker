@@ -60,7 +60,9 @@ dotenv.config();
     UserModule,
     CountryslugsModule,
     EmailModule,
+    UserModule,
     TravelModule,
+    CountryslugsModule,
     SendGridModule.forRoot({
       apiKey: process.env.SENDGRID_API_KEY,
     }),
