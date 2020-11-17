@@ -27,7 +27,6 @@ export class DayService {
   }
 
   async findCountryStatistics(country: string) {
-    console.log(country);
     return this.dayModel.aggregate([
       {
         $set: {

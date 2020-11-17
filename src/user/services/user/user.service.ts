@@ -39,14 +39,12 @@ export class UserService {
         return await newSub.save();
       }
     } catch (error) {
-      console.log('error');
       throw error;
     }
   }
 
   async subscribeCountryInfo(email: string, country: string) {
     const isSubbed = await this.checkForCountrySubUser(email, country);
-    console.log('isSubbed', isSubbed);
     try {
       if (isSubbed.length > 0) {
         return false;
@@ -58,7 +56,6 @@ export class UserService {
         await this.subCountryModel
           .findOne({ email }, (err, doc) => {
             if (err) {
-              console.log('Error:', err);
               throw err;
             } else {
               if (doc == null) {
@@ -66,12 +63,10 @@ export class UserService {
                 (newCountry.email = email), newCountry.countries.push(country);
                 newCountry.createdAt = new Date();
                 const res = newCountry.save();
-                console.log('New doc created', newCountry);
                 return res;
               } else {
                 doc.countries.push(country);
                 const res = doc.save();
-                console.log('Updated', doc);
                 return res;
               }
             }
@@ -79,7 +74,6 @@ export class UserService {
           .exec();
       }
     } catch (error) {
-      console.log('error');
       throw error;
     }
 
@@ -103,16 +97,12 @@ export class UserService {
   }
 
   async checkForCountrySubUser(email: string, country: string) {
-    console.log(email);
-    console.log(country);
-
     const result = await this.subCountryModel
       .find({
         email: email,
         countries: { $in: [country] },
       })
       .exec();
-    console.log(result);
 
     return result;
   }
@@ -125,7 +115,6 @@ export class UserService {
   }
 
   async getAllGeneralSubs() {
-    console.log('getsubs');
     return await this.subGeneralModel.find({}, { email: 1 }).exec();
   }
 
@@ -135,10 +124,8 @@ export class UserService {
     return await this.subCountryModel
       .find({}, async (err, doc) => {
         if (err) {
-          console.log(err);
           throw err;
         }
-        console.log(doc);
         const [data] = doc;
         const details = await this.countrySummaryService.getCountrySummaryList(
           data.countries,
@@ -146,7 +133,6 @@ export class UserService {
         const [] = details;
         const emailList = doc.map(res => res.email);
         details.forEach(element => {
-          console.log('ELEMENT', element);
           const msg = {
             to: emailList, // Change to your recipient
             from: 'fernando316correia@hotmail.com', // Change to your verified sender
@@ -161,7 +147,6 @@ export class UserService {
               TotalRecovered: element.TotalRecovered,
             },
           };
-          console.log(msg);
           this.sendMSG
             .sendMultiple(msg)
             .then(() => {
