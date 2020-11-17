@@ -1,8 +1,9 @@
 module.exports = {
   apps: [
     {
-      name: 'DeployApp',
-      script: 'build/main.js',
+      name: 'app',
+      script: './app.js',
+      instances: 'max',
       env: {
         NODE_ENV: 'development',
       },
