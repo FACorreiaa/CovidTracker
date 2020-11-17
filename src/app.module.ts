@@ -3,8 +3,6 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
-import * as config from 'nestjs-config';
-import * as path from 'path';
 import { SummaryModule } from './summary/summary.module';
 import { ScheduleModule } from '@nestjs/schedule/dist/schedule.module';
 import { WipModule } from './wip/wip.module';
@@ -46,9 +44,6 @@ require('dotenv').config();
       expandVariables: true,
       isGlobal: true,
     }),
-    config.ConfigModule.load(
-      path.resolve(__dirname, 'config', '**/!(*.d).{ts,js}'),
-    ),
     MongooseModule.forRoot(
       `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.5295o.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`,
       {
