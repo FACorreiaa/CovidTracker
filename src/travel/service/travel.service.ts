@@ -10,7 +10,7 @@ export class TravelService {
   ) {}
 
   async getTravelInfo(country: string) {
-    return this.travelModel.find({ Country: country });
+    return await this.saveTravelInfo(country);
   }
 
   async saveTravelInfo(country: string) {

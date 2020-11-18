@@ -9,14 +9,12 @@ import * as dotenv from 'dotenv';
 import { ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
 import { AllExceptionsFilter } from './validators/filter.validator';
-import dotenvFlow = require('dotenv-flow');
 
 require('newrelic');
-dotenv.config();
 declare const module: any;
 
 async function bootstrap() {
-  dotenvFlow.config();
+  dotenv.config();
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('api');
   app.use(bodyParser.json({ limit: '500mb' }));
@@ -44,7 +42,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup('api/spec', app, document);
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 3001);
   console.log(`SERVER (${process.pid}) IS RUNNING ON `, process.env.PORT);
   if (module.hot) {
     module.hot.accept();

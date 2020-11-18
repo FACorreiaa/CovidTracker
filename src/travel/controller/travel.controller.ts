@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Param,
+  Query,
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
@@ -18,8 +19,7 @@ export class TravelController {
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
   @Get('/:country')
-  async createSlugs(@Param('country') country: string) {
-    console.log(country);
+  async getTravelInfo(@Param('country') country: string) {
     return await this.travelService.getTravelInfo(country);
   }
 }
