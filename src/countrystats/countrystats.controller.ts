@@ -3,7 +3,6 @@ import {
   Controller,
   Get,
   Param,
-  Query,
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
