@@ -18,7 +18,7 @@ export class TravelController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('/:country')
+  @Get('country/:country')
   async getTravelInfo(@Param('country') country: string) {
     return await this.travelService.getTravelInfo(country);
   }

@@ -26,7 +26,6 @@ export class TravelService {
   }
 
   async getTravelInfoFromAPI(country: string) {
-    console.log(country);
     const headersRequest = {
       'X-Access-Token': '5cf9dfd5-3449-485e-b5ae-70a60e997864',
     };
@@ -38,6 +37,8 @@ export class TravelService {
       `${process.env.BASE_URL}/premium/travel/country/${country}`,
       { headers: headersRequest },
     );
+    console.log(result.data);
+
     return result.data;
   }
 }
