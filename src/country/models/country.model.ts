@@ -41,5 +41,6 @@ class Country extends Document {
   createdAt: Date;
 }
 
-export const CountrySchema = SchemaFactory.createForClass(Country);
-CountrySchema.index({ 'name.Country': 1, 'name.Status': 1 }, { unique: true });
+export const CountrySchema = SchemaFactory.createForClass(Country).index({
+  'name.Country': 1,
+});

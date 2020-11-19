@@ -51,6 +51,6 @@ class CountryStatistics extends Document {
 
 export const CountryStatisticsSchema = SchemaFactory.createForClass(
   CountryStatistics,
-);
-
-CountryStatisticsSchema.index({ location: 1 }, { unique: true });
+).index({
+  'data.location': 1,
+});

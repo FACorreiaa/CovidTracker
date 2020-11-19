@@ -38,7 +38,7 @@ export class HospitalService {
       {
         'country.Year': 1,
         'country.Weekly_new_hospital_admissions': 1,
-        'country.Weekly_new_icu_admissions': 1,
+        'country.Weekly_new_ICU_admissions': 1,
       },
     );
   }

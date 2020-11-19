@@ -37,5 +37,6 @@ class Live extends Document {
   createdAt: Date;
 }
 
-export const LiveSchema = SchemaFactory.createForClass(Live);
-LiveSchema.index({ 'name.Country': 1 }, { unique: true });
+export const LiveSchema = SchemaFactory.createForClass(Live).index({
+  'name.Country': 1,
+});

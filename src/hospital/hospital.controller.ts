@@ -33,7 +33,7 @@ export class HospitalController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('country/admisions/:country')
+  @Get('country/admissions/:country')
   async getAdmissionsData(@Param('country') country: string) {
     return await this.statsService.getAdmissionsData(country);
   }

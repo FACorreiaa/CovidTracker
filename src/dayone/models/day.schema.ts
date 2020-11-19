@@ -46,5 +46,7 @@ class DayOne extends Document {
   stdConfirmed: number;
 }
 
-export const DayOneSchema = SchemaFactory.createForClass(DayOne);
-DayOneSchema.index({ 'name.Country': 1 }, { unique: true });
+export const DayOneSchema = SchemaFactory.createForClass(DayOne).index({
+  'name.Country': 1,
+  'name.Status': 1,
+});

@@ -25,4 +25,6 @@ class Travel extends Document {
   Notes: [subNotes];
 }
 
-export const TravelSchema = SchemaFactory.createForClass(Travel);
+export const TravelSchema = SchemaFactory.createForClass(Travel).index({
+  Country: 1,
+});

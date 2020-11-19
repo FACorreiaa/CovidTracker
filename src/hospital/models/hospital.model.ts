@@ -31,4 +31,8 @@ class HospitalInfo extends Document {
   country: [SubHospitalInfo];
 }
 
-export const HospitalInfoSchema = SchemaFactory.createForClass(HospitalInfo);
+export const HospitalInfoSchema = SchemaFactory.createForClass(
+  HospitalInfo,
+).index({
+  'country.Entity': 1,
+});
