@@ -10,27 +10,46 @@ export class HospitalService {
     private readonly hospitalModel: Model<HospitalInfoDocument>,
   ) {}
 
-  async getHospitalData(country: string) {
+  async getOccupancyData(country: string) {
     return await this.hospitalModel.find(
       { 'country.Entity': country },
       {
         'country.Year': 1,
         'country.Daily_hospital_occupancy': 1,
-        'country.Daily_hospital_occupancy_per_million': 1,
-        'country.Weekly_new_hospital_admissions': 1,
-        'country.Weekly_new_hospital_admissions_per_million': 1,
+        'country.Daily_ICU_occupancy': 1,
       },
     );
   }
 
-  async getICUData(country: string) {
+  async getOccupancyDataPerMillion(country: string) {
     return this.hospitalModel.find(
       { 'country.Entity': country },
       {
         'country.Year': 1,
-        'country.Daily_ICU_occupancy': 1,
         'country.Daily_ICU_occupancy_per_million': 1,
-        'country.Weekly_new_ICU_admissions': 1,
+        'country.Daily_ICU_hospital_per_million': 1,
+      },
+    );
+  }
+
+  async getAdmissionsData(country: string) {
+    return await this.hospitalModel.find(
+      { 'country.Entity': country },
+      {
+        'country.Year': 1,
+        'country.Weekly_new_hospital_admissions': 1,
+        'country.Weekly_new_icu_admissions': 1,
+      },
+    );
+  }
+
+  async getAdmissionsPerMillionData(country: string) {
+    return this.hospitalModel.find(
+      { 'country.Entity': country },
+      {
+        'country.Year': 1,
+        'country.Weekly_new_hospital_admissions_per_million': 1,
+
         'country.Weekly_new_ICU_admissions_per_million': 1,
       },
     );

@@ -17,16 +17,32 @@ export class HospitalController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('country/hospital/:country')
-  async getHospitalData(@Param('country') country: string) {
-    return await this.statsService.getHospitalData(country);
+  @Get('country/occupancy/:country')
+  async getOccupancyData(@Param('country') country: string) {
+    return await this.statsService.getOccupancyData(country);
   }
 
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('country/data/:country')
-  async getICUData(@Param('country') country: string) {
-    return await this.statsService.getICUData(country);
+  @Get('country/occupancy/million/:country')
+  async getOccupancyDataPerMillion(@Param('country') country: string) {
+    return await this.statsService.getOccupancyDataPerMillion(country);
+  }
+
+  @UseFilters(AllExceptionsFilter)
+  @UseFilters(MongoExceptionFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('country/admisions/:country')
+  async getAdmissionsData(@Param('country') country: string) {
+    return await this.statsService.getAdmissionsData(country);
+  }
+
+  @UseFilters(AllExceptionsFilter)
+  @UseFilters(MongoExceptionFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('country/admissions/million/:country')
+  async getAdmissionsPerMillionData(@Param('country') country: string) {
+    return await this.statsService.getAdmissionsPerMillionData(country);
   }
 }
