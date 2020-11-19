@@ -21,6 +21,7 @@ import { MailerModule } from '@nestjs-modules/mailer/dist/mailer.module';
 import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
 import { TravelModule } from './travel/travel.module';
 import { CountrystatsModule } from './countrystats/countrystats.module';
+import { HospitalModule } from './hospital/hospital.module';
 //add .env.prod
 dotenv.config();
 @Module({
@@ -69,6 +70,7 @@ dotenv.config();
     }),
     TravelModule,
     CountrystatsModule,
+    HospitalModule,
   ],
   controllers: [AppController],
   providers: [
