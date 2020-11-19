@@ -27,10 +27,11 @@ export class HospitalService {
     return this.hospitalModel.find(
       { 'country.Entity': country },
       {
-        Daily_ICU_occupancy: 1,
-        Daily_ICU_occupancy_per_million: 1,
-        Weekly_new_ICU_admissions: 1,
-        Weekly_new_ICU_admissions_per_million: 1,
+        'country.Year': 1,
+        'country.Daily_ICU_occupancy': 1,
+        'country.Daily_ICU_occupancy_per_million': 1,
+        'country.Weekly_new_ICU_admissions': 1,
+        'country.Weekly_new_ICU_admissions_per_million': 1,
       },
     );
   }
