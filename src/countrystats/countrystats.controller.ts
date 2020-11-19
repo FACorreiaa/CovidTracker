@@ -17,7 +17,7 @@ export class CountrystatsController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('country/data/:country')
+  @Get('country/info/:country')
   async getCountryDataStats(@Param('country') country: string) {
     return await this.statsService.getCountryDataStats(country);
   }
@@ -25,7 +25,7 @@ export class CountrystatsController {
   @UseFilters(AllExceptionsFilter)
   @UseFilters(MongoExceptionFilter)
   @UseInterceptors(CacheInterceptor)
-  @Get('country/stats/:country')
+  @Get('country/data/:country')
   async getCountryStats(@Param('country') country: string) {
     return await this.statsService.getCountryStats(country);
   }
