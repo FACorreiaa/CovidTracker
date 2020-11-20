@@ -25,10 +25,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "docker:build": "docker build -t a11199/covidtrackerapi .",
-    "docker:push": "docker push a11199/covidtrackerapi:covidtracker",
-    "docker:run": "docker run -d --restart unless-stopped a11199/covidtrackerapi",
-    "docker:pull": "docker pull a11199/covidtrackerapi"
+    "docker:pull": "docker pull a11199/covidtrackerapi:covidapi",
+    "docker:build": "docker build -t a11199/covidtrackerapi:covidapi .",
+    "docker:push": "docker push a11199/covidtrackerapi:covidapi",
+    "docker:run": "docker run -d --restart unless-stopped a11199/covidtrackerapi:covidapi"
   },
   "dependencies": {
     "@nestjs-modules/mailer": "1.5.1",
