@@ -17,7 +17,7 @@ export class EmailService {
     @InjectSendGrid() private readonly sendMSG: SendGridService,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_HOURS)
+  @Cron(CronExpression.EVERY_12_HOURS)
   async sendSubGeneralEmail() {
     this.logger.debug('Called every 10 HOURS');
 

@@ -127,7 +127,7 @@ export class UserService {
       .exec();
   }
 
-  @Cron(CronExpression.EVERY_10_HOURS)
+  @Cron(CronExpression.EVERY_12_HOURS)
   async sendSubCountryEmail() {
     this.logger.debug('Called every 10 HOURS');
     return await this.subCountryModel

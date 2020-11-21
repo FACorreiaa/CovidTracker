@@ -14,7 +14,7 @@ export class WipService {
     private readonly totalwipModel: Model<WIPTotalDocument>,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_HOURS)
+  @Cron(CronExpression.EVERY_12_HOURS)
   async createWIP() {
     const data = await this.wipData();
     const { TotalConfirmed, TotalDeaths, TotalRecovered } = data;
