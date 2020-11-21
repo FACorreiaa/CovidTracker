@@ -159,6 +159,7 @@ export class CountriesService {
       })
       .sort('-countrySummary.Date')
       .limit(1)
+      .lean()
       .exec();
     const [data] = res;
     return data;

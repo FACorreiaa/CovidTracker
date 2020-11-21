@@ -71,6 +71,7 @@ export class UserService {
               }
             }
           })
+          .lean()
           .exec();
       }
     } catch (error) {
@@ -92,7 +93,10 @@ export class UserService {
   /*AUX METHODS*/
   //#endregion
   async checkForSubUser(email: string) {
-    const result = await this.subGeneralModel.find({ email: email }).exec();
+    const result = await this.subGeneralModel
+      .find({ email: email })
+      .lean()
+      .exec();
     return result;
   }
 
@@ -102,6 +106,7 @@ export class UserService {
         email: email,
         countries: { $in: [country] },
       })
+      .lean()
       .exec();
 
     return result;
@@ -111,11 +116,15 @@ export class UserService {
     return await this.userModel
       .findOne({ _id: id })
       .select('+password')
+      .lean()
       .exec();
   }
 
   async getAllGeneralSubs() {
-    return await this.subGeneralModel.find({}, { email: 1 }).exec();
+    return await this.subGeneralModel
+      .find({}, { email: 1 })
+      .lean()
+      .exec();
   }
 
   @Cron(CronExpression.EVERY_10_HOURS)
@@ -159,11 +168,15 @@ export class UserService {
 
         return doc;
       })
+      .lean()
       .exec();
   }
 
   async getAllCountriesByEmail(email: string) {
-    return await this.subCountryModel.find({ email }, { countries: 1 }).exec();
+    return await this.subCountryModel
+      .find({ email }, { countries: 1 })
+      .lean()
+      .exec();
   }
 
   async postContactMessage(contact: IContact) {

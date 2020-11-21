@@ -29,6 +29,7 @@ export class WipService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
     //return result.id as string;;
   }
@@ -44,6 +45,43 @@ export class WipService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
+      .exec();
+  }
+
+  async findTotalWIPbyDate(from: Date, to: Date) {
+    const data = await this.findwipData(from, to);
+    const newCountrySummary = new this.wipModel();
+    newCountrySummary.name = data;
+    newCountrySummary.createdAt = new Date();
+
+    return await this.wipModel
+      .find(
+        {},
+        {
+          'name.TotalConfirmed': 1,
+          'name.TotalDeaths': 1,
+          'name.TotalRecovered': 1,
+        },
+      )
+      .sort([['createdAt', -1]])
+      .lean()
+      .exec();
+  }
+
+  async findNewWIPbyDate(from: Date, to: Date) {
+    const data = await this.findwipData(from, to);
+    const newCountrySummary = new this.wipModel();
+    newCountrySummary.name = data;
+    newCountrySummary.createdAt = new Date();
+
+    return await this.wipModel
+      .find(
+        {},
+        { 'name.NewConfirmed': 1, 'name.NewDeaths': 1, 'name.NewRecovered': 1 },
+      )
+      .sort([['createdAt', -1]])
+      .lean()
       .exec();
   }
 

@@ -2,6 +2,7 @@ import {
   CacheInterceptor,
   Controller,
   Get,
+  Param,
   Query,
   UseFilters,
   UseInterceptors,
@@ -28,5 +29,21 @@ export class WipController {
   @Get('total/date')
   async findWIPbyDate(@Query('from') from: Date, @Query('to') to: Date) {
     return await this.wipService.findWIPbyDate(from, to);
+  }
+
+  @UseFilters(AllExceptionsFilter)
+  @UseFilters(MongoExceptionFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('total/date/total')
+  async findTotalWIPbyDate(@Query('from') from: Date, @Query('to') to: Date) {
+    return await this.wipService.findTotalWIPbyDate(from, to);
+  }
+
+  @UseFilters(AllExceptionsFilter)
+  @UseFilters(MongoExceptionFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('total/date/new')
+  async findNewWIPbyDate(@Query('from') from: Date, @Query('to') to: Date) {
+    return await this.wipService.findNewWIPbyDate(from, to);
   }
 }

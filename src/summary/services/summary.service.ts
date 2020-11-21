@@ -41,6 +41,7 @@ export class SummaryService {
       .find()
       .sort('-createdAt')
       .limit(1)
+      .lean()
       .exec();
   }
 

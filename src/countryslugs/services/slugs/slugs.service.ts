@@ -25,11 +25,15 @@ export class SlugsService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
   async getAllSlugs() {
-    return await this.slugModel.find().exec();
+    return await this.slugModel
+      .find()
+      .lean()
+      .exec();
   }
 
   async getByCountry(iso: string) {
@@ -37,7 +41,10 @@ export class SlugsService {
   }
 
   async getAllCountries() {
-    return await this.slugModel.find({}, { 'list.Country': 1 }).exec();
+    return await this.slugModel
+      .find({}, { 'list.Country': 1 })
+      .lean()
+      .exec();
   }
 
   //alterar amanha

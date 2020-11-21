@@ -23,6 +23,7 @@ export class DayService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -52,6 +53,7 @@ export class DayService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -66,6 +68,7 @@ export class DayService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 

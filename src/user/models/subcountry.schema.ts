@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { IsNotEmpty } from 'class-validator';
 import { Document } from 'mongoose';
 import { subCountry } from 'src/summary/models/subCountry.interface';
 import { validateEmail } from 'src/validators/email.validators';
@@ -16,6 +17,7 @@ class SubscribeCountry extends Document {
   })
   email: string;
   @Prop()
+  @IsNotEmpty()
   countries: string[];
   @Prop()
   createdAt: Date;

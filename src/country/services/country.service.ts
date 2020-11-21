@@ -22,6 +22,7 @@ export class CountryService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -41,6 +42,7 @@ export class CountryService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -55,6 +57,7 @@ export class CountryService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -74,6 +77,7 @@ export class CountryService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -93,6 +97,7 @@ export class CountryService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 

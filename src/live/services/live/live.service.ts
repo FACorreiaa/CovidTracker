@@ -20,6 +20,7 @@ export class LiveService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
@@ -39,6 +40,7 @@ export class LiveService {
       .find({})
       .sort([['createdAt', -1]])
       .limit(1)
+      .lean()
       .exec();
   }
 
