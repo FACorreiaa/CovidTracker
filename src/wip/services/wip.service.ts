@@ -85,6 +85,37 @@ export class WipService {
       .exec();
   }
 
+  /*async findStatusWIPbyDate(from: Date, to: Date, status: string) {
+    const data = await this.findwipData(from, to);
+    const newCountrySummary = new this.wipModel();
+    let query = {};
+
+     newCountrySummary.name = data;
+    newCountrySummary.createdAt = new Date();
+    query[status] = { $arrayElemAt: ['$name.' + status, 0] };
+    console.log(query);
+    return await this.wipModel
+      .aggregate([
+        {
+          //Your $match stage here
+          _id: '5fb9a45378eb1931ec379cf8',
+        },
+        {
+          $project: query,
+        },
+      ])
+      .sort([['createdAt', -1]])
+      .exec();
+      //
+    query[status] = 1;
+    console.log(query);
+    return await this.wipModel
+      .find({})
+      .sort([['createdAt', -1]])
+      .lean()
+      .exec();
+  }*/
+
   async findwipData(from: Date, to: Date) {
     const result = await axios.get(
       `${process.env.BASE_URL}/world?from=${from}&to=${to}`,

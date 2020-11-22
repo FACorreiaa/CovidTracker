@@ -177,6 +177,102 @@ export class CountriesService {
     );
   }
 
+  async findNewConfirmed() {
+    return this.countrysummaryModel
+      .find(
+        {},
+        {
+          'countrySummary.Country': 1,
+          'countrySummary.NewConfirmed': 1,
+          'countrySummary.Date': 1,
+        },
+      )
+      .sort('-countrySummary.Date')
+      .limit(1)
+      .lean()
+      .exec();
+  }
+
+  async findNewDeaths() {
+    return this.countrysummaryModel
+      .find(
+        {},
+        {
+          'countrySummary.Country': 1,
+          'countrySummary.NewDeaths': 1,
+          'countrySummary.Date': 1,
+        },
+      )
+      .sort('-countrySummary.Date')
+      .limit(1)
+      .lean()
+      .exec();
+  }
+
+  async findNewRecovered() {
+    return this.countrysummaryModel
+      .find(
+        {},
+        {
+          'countrySummary.Country': 1,
+          'countrySummary.NewRecovered': 1,
+          'countrySummary.Date': 1,
+        },
+      )
+      .sort('-countrySummary.Date')
+      .limit(1)
+      .lean()
+      .exec();
+  }
+
+  async findTotalConfirmed() {
+    return this.countrysummaryModel
+      .find(
+        {},
+        {
+          'countrySummary.Country': 1,
+          'countrySummary.TotalConfirmed': 1,
+          'countrySummary.Date': 1,
+        },
+      )
+      .sort('-countrySummary.Date')
+      .limit(1)
+      .lean()
+      .exec();
+  }
+
+  async findTotalDeaths() {
+    return this.countrysummaryModel
+      .find(
+        {},
+        {
+          'countrySummary.Country': 1,
+          'countrySummary.TotalDeaths': 1,
+          'countrySummary.Date': 1,
+        },
+      )
+      .sort('-countrySummary.Date')
+      .limit(1)
+      .lean()
+      .exec();
+  }
+
+  async findTotalRecovered() {
+    return this.countrysummaryModel
+      .find(
+        {},
+        {
+          'countrySummary.Country': 1,
+          'countrySummary.TotalRecovered': 1,
+          'countrySummary.Date': 1,
+        },
+      )
+      .sort('-countrySummary.Date')
+      .limit(1)
+      .lean()
+      .exec();
+  }
+
   async getDailyCountrySUmmary(country: string): Promise<subCountry[]> {
     const data = await this.getSummaryHistory();
     const { countrySummary } = data;

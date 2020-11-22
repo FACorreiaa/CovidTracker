@@ -46,4 +46,17 @@ export class WipController {
   async findNewWIPbyDate(@Query('from') from: Date, @Query('to') to: Date) {
     return await this.wipService.findNewWIPbyDate(from, to);
   }
+
+  //future todo
+  /*@UseFilters(AllExceptionsFilter)
+  @UseFilters(MongoExceptionFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('total/date/status/:status')
+  async findStatusWIPbyDate(
+    @Query('from') from: Date,
+    @Query('to') to: Date,
+    @Param('status') status: string,
+  ) {
+    return await this.wipService.findStatusWIPbyDate(from, to, status);
+  }*/
 }

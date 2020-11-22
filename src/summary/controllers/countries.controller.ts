@@ -86,4 +86,52 @@ export class CountriesController {
   async getDailyCountrySUmmary(@Param('country') country: string) {
     return await this.countriesService.getDailyCountrySUmmary(country);
   }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('new/confirmed')
+  async findNewConfirmed() {
+    return await this.countriesService.findNewConfirmed();
+  }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('new/recovered')
+  async findNewRecovered() {
+    return await this.countriesService.findNewRecovered();
+  }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('new/deaths')
+  async findNewDeaths() {
+    return await this.countriesService.findNewDeaths();
+  }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('total/confirmed')
+  async findTotalConfirmed() {
+    return await this.countriesService.findTotalConfirmed();
+  }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('total/deaths')
+  async findTotalDeaths() {
+    return await this.countriesService.findTotalDeaths();
+  }
+
+  @UseFilters(MongoExceptionFilter)
+  @UseFilters(AllExceptionsFilter)
+  @UseInterceptors(CacheInterceptor)
+  @Get('total/recovered')
+  async findTotalRecovered() {
+    return await this.countriesService.findTotalRecovered();
+  }
 }
