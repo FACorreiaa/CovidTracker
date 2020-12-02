@@ -35,17 +35,28 @@ export class CountrystatsService {
   }
 
   async getCountryStats(country: string) {
-    return this.statsModel.find(
-      { location: country },
-      {
-        'data.date': 1,
-        'data.total_cases_per_million': 1,
-        'data.new_cases_per_million': 1,
-        'data.total_deaths_per_million': 1,
-        'data.new_deaths_per_million': 1,
-        'data.new_deaths_smoothed_per_million': 1,
-        'data.new_cases_smoothed_per_million': 1,
-      },
-    );
+    return this.statsModel
+      .aggregate([
+        { $match: { location: country } },
+        { $unwind: '$data' },
+        {
+          $project: {
+            'data.date': 1,
+            'data.total_cases_per_million': 1,
+            'data.new_cases_per_million': 1,
+            'data.total_deaths_per_million': 1,
+            'data.new_deaths_per_million': 1,
+            'data.new_deaths_smoothed_per_million': 1,
+            'data.new_cases_smoothed_per_million': 1,
+          },
+        },
+        {
+          $sort: { 'data.date': -1 },
+        },
+        {
+          $limit: 30,
+        },
+      ])
+      .exec();
   }
 }

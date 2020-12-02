@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import axios from 'axios';
 import { Model } from 'mongoose';
 import { CountryDocument } from 'src/country/models/country.model';
-import { SlugsService } from 'src/countryslugs/services/slugs/slugs.service';
 @Injectable()
 export class CountryService {
   constructor(
@@ -19,10 +18,26 @@ export class CountryService {
     await newCountrySummary.save();
 
     return await this.countryModel
-      .find({})
-      .sort([['createdAt', -1]])
-      .limit(1)
-      .lean()
+      .aggregate([
+        { $unwind: '$name' },
+        {
+          $project: {
+            'name.Date': 1,
+            'name.Confirmed': 1,
+            'name.Deaths': 1,
+            'name.Recovered': 1,
+            'name.Active': 1,
+            'name.Country': 1,
+            createdAt: 1,
+          },
+        },
+        {
+          $sort: { createdAt: -1, 'name.Date': -1 },
+        },
+        {
+          $limit: 30,
+        },
+      ])
       .exec();
   }
 
@@ -39,10 +54,26 @@ export class CountryService {
     await newCountrySummary.save();
 
     return await this.countryModel
-      .find({})
-      .sort([['createdAt', -1]])
-      .limit(1)
-      .lean()
+      .aggregate([
+        { $unwind: '$name' },
+        {
+          $project: {
+            'name.Date': 1,
+            'name.Confirmed': 1,
+            'name.Deaths': 1,
+            'name.Recovered': 1,
+            'name.Active': 1,
+            'name.Country': 1,
+            createdAt: 1,
+          },
+        },
+        {
+          $sort: { createdAt: -1, 'name.Date': -1 },
+        },
+        {
+          $limit: 30,
+        },
+      ])
       .exec();
   }
 
