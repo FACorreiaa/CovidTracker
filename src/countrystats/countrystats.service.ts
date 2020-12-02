@@ -56,6 +56,9 @@ export class CountrystatsService {
         {
           $limit: 30,
         },
+        {
+          $sort: { 'data.date': 1 },
+        },
       ])
       .exec();
   }

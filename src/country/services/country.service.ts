@@ -37,6 +37,9 @@ export class CountryService {
         {
           $limit: 30,
         },
+        {
+          $sort: { createdAt: 1, 'name.Date': 1 },
+        },
       ])
       .exec();
   }
@@ -64,6 +67,7 @@ export class CountryService {
             'name.Recovered': 1,
             'name.Active': 1,
             'name.Country': 1,
+            'name.Cases': 1,
             createdAt: 1,
           },
         },
@@ -72,6 +76,9 @@ export class CountryService {
         },
         {
           $limit: 30,
+        },
+        {
+          $sort: { createdAt: 1, 'name.Date': 1 },
         },
       ])
       .exec();
